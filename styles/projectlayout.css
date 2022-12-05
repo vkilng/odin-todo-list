@@ -1,0 +1,102 @@
+.tasks-container {
+    display: grid;
+    grid-auto-rows: min-content;
+    padding: 2vw;
+}
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px black;
+    padding-bottom: 2vw;
+}
+.project-header > div {
+    display: flex;
+}
+.project-header div:nth-of-type(1) .material-symbols-rounded {
+    flex-shrink: 0;
+    font-size: 3rem;
+    align-self: center;
+    cursor: pointer;
+    color: grey;
+    opacity: 0.5;
+    margin-right: 0.5vw;
+}
+.project-header div:nth-of-type(1) .material-symbols-rounded:hover {
+    background-color: rgba(207, 207, 207, 0.5);
+    border-radius: 1vw;
+    opacity: 1;
+}
+.project-header div div {
+    max-width: 35vw;
+    font-size: 1.5rem;
+    padding: 0.3vw 1vw;
+    display: flex; align-items: center;
+}
+.project-header .material-symbols-sharp {
+    padding-top: calc(0.6vw + 1vh);
+    color: grey;
+    cursor: pointer;
+    height: min-content;
+}
+.project-header .material-symbols-sharp:hover {
+    font-variation-settings: 'FILL' 1;
+}
+.project-header div:nth-of-type(2) {
+    gap: 0.5vw;
+    padding: 0.5vw;
+    cursor: pointer;
+    height: min-content;
+    align-items: center;
+    color: grey;
+    border: solid black 1px;
+    border-radius: 1vw;
+    user-select: none;
+}
+.project-header div:nth-of-type(2):hover {
+    color: black;
+}
+
+.todo-list {
+    overflow-y: scroll;
+}
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vw 0;
+    border-bottom: solid grey 1px;
+}
+.todo > div {
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+}
+.todo i {
+    font-variation-settings: 'wght' 200;
+    cursor: pointer;
+}
+.todo i:hover {
+    font-variation-settings: 'FILL' 1;
+}
+.todo div:nth-of-type(1) i {
+    font-size: 2rem;
+}
+.todo div:nth-of-type(1) i:hover {
+    color: #84cc16;
+}
+.todo div:nth-of-type(2) i:hover {
+    color: #dc2626;
+    font-size: 1.5rem;
+}
+.todo div div {
+    font-size: 0.9rem;
+}
+.todo div:nth-of-type(1) div {
+    cursor: pointer;
+}
+.todo div:nth-of-type(1) div:hover {
+    font-size: 1rem;
+}
+.todo .duedate {
+    color: #57534e;
+}
