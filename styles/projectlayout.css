@@ -12,7 +12,7 @@
 .project-header > div {
     display: flex;
 }
-.project-header div:nth-of-type(1) .material-symbols-rounded {
+.left-project-header .material-symbols-rounded {
     flex-shrink: 0;
     font-size: 3rem;
     align-self: center;
@@ -21,39 +21,56 @@
     opacity: 0.5;
     margin-right: 0.5vw;
 }
-.project-header div:nth-of-type(1) .material-symbols-rounded:hover {
+.left-project-header .material-symbols-rounded:hover {
     background-color: rgba(207, 207, 207, 0.5);
     border-radius: 1vw;
     opacity: 1;
 }
-.project-header div div {
-    max-width: 35vw;
+.left-project-header div {
+    overflow-x: hidden;
+    max-width: 25vw;
     font-size: 1.5rem;
     padding: 0.3vw 1vw;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
     display: flex; align-items: center;
 }
-.project-header .material-symbols-sharp {
-    padding-top: calc(0.6vw + 1vh);
+.left-project-header .material-symbols-sharp {
     color: grey;
     cursor: pointer;
     height: min-content;
+    font-size: 1rem;
 }
-.project-header .material-symbols-sharp:hover {
+.left-project-header .material-symbols-sharp:hover {
     font-variation-settings: 'FILL' 1;
+}    
+.middle-project-header {
+    position: relative;
 }
-.project-header div:nth-of-type(2) {
+.middle-project-header div:nth-of-type(1) {
+    display: flex;
+    align-items: center;
     gap: 0.5vw;
-    padding: 0.5vw;
     cursor: pointer;
+}
+.middle-project-header, .right-project-header {
+    padding: 0.5vw 1vw;
     height: min-content;
     align-items: center;
     color: grey;
-    border: solid black 1px;
+    background-color: rgba(203, 213, 225, 0.5);
     border-radius: 1vw;
     user-select: none;
 }
-.project-header div:nth-of-type(2):hover {
+.right-project-header {
+    gap: 0.5vw;
+    cursor: pointer;
+}
+.right-project-header:hover, .middle-project-header div:nth-of-type(1):hover {
     color: black;
+    font-variation-settings: 'FILL' 1;
 }
 
 .todo-list {

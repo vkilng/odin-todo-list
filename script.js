@@ -54,7 +54,7 @@ const appController = () => {
     const container = projectContainer();
     const containerArray = container.getContainerArray();
     //Initialize dummy Project
-    container.addProject('Dummy Project One adipiscing elit');
+    container.addProject('Dummy Project One');
     containerArray[0].addTodo('Lorem ipsum','dolor sit amet');
     containerArray[0].addTodo('consectetur adipiscing elit','Donec egestas tincidunt ultrices');
     containerArray[0].addTodo('Curabitur lobortis','quam sed imperdiet hendrerit');
@@ -126,11 +126,13 @@ const screenController = (() => {
         const tasksContainerDiv = document.createElement('div');
         tasksContainerDiv.classList.add('tasks-container');
         contentDiv.appendChild(tasksContainerDiv);
+
         const addProjectHeader = (() => {
             const projectHeaderDiv = document.createElement('div');
             projectHeaderDiv.classList.add('project-header');
             tasksContainerDiv.appendChild(projectHeaderDiv);
             const leftHeaderDiv = document.createElement('div');
+            leftHeaderDiv.classList.add('left-project-header');
             projectHeaderDiv.appendChild(leftHeaderDiv);
             const goBackToProjectContainerIcon = document.createElement('i');
             goBackToProjectContainerIcon.classList.add('material-symbols-rounded');
@@ -158,7 +160,56 @@ const screenController = (() => {
                 })
                 return;
             })
+            const middleHeaderDiv = document.createElement('div');
+            middleHeaderDiv.classList.add('middle-project-header');
+            projectHeaderDiv.appendChild(middleHeaderDiv);
+            const addTodoButton = document.createElement('div');
+            middleHeaderDiv.appendChild(addTodoButton);
+            addTodoButton.insertAdjacentHTML('beforeend','<i class="material-symbols-sharp">&#xe147</i>Add Todo');
+            //Add Todo Form DOM code
+            const addTodoPopUp = document.createElement('div');
+            addTodoPopUp.classList.add('add-todo-popup');
+            middleHeaderDiv.appendChild(addTodoPopUp);
+            const addTodoForm = document.createElement('form');
+            addTodoPopUp.appendChild(addTodoForm);
+            const todoTitleInput = document.createElement('input');
+            todoTitleInput.setAttribute('type','text');
+            todoTitleInput.setAttribute('placeholder','Title');
+            todoTitleInput.setAttribute('required','true');
+            addTodoForm.appendChild(todoTitleInput);
+            const todoDescriptionInput = document.createElement('input');
+            todoDescriptionInput.setAttribute('type','text');
+            todoDescriptionInput.setAttribute('placeholder','Description');
+            addTodoForm.appendChild(todoDescriptionInput);
+            const todoDueDateInput = document.createElement('input');
+            todoDueDateInput.setAttribute('type','date');
+            todoDueDateInput.setAttribute('max','2027-12-31');
+            addTodoForm.appendChild(todoDueDateInput);
+            addTodoForm.insertAdjacentHTML('beforeend',"<p><input type='submit' value='Submit' /></p>");
+            const addTodoFunction = (() => {
+                const toggleAddTodoPopUp = () => {
+                    addTodoPopUp.classList.toggle('show');
+                    const addTodoIcon = document.querySelector('.middle-project-header i');
+                    const iconHex = addTodoIcon.textContent.charCodeAt(0).toString(16);
+                    addTodoIcon.innerHTML = (iconHex === 'e5c9')?'&#xe147':'&#xe5c9';
+                };
+                addTodoButton.addEventListener('click',() => {
+                    toggleAddTodoPopUp();
+                    return;
+                })
+                addTodoForm.addEventListener('submit',(e) => {
+                    e.preventDefault();
+                    project.addTodo(todoTitleInput.value, todoDescriptionInput.value, todoDueDateInput.value);
+                    updateTodoListDisplay();
+                    addTodoForm.reset();
+                    toggleAddTodoPopUp();
+                    return;
+                })
+            })();
+
+            const addTodoIcon = document.createElement('i');
             const rightHeaderDiv = document.createElement('div');
+            rightHeaderDiv.classList.add('right-project-header');
             projectHeaderDiv.appendChild(rightHeaderDiv);
             rightHeaderDiv.insertAdjacentHTML('beforeend','<i class="material-symbols-rounded">&#xe16c</i>Delete this project');
             rightHeaderDiv.addEventListener('dblclick',() => {
@@ -167,12 +218,16 @@ const screenController = (() => {
                 return;
             })
         })();
-        const addTodoList = (() => {
-            const todoListDiv = document.createElement('div');
-            todoListDiv.classList.add('todo-list');
-            tasksContainerDiv.appendChild(todoListDiv);
+
+        const todoListDiv = document.createElement('div');
+        todoListDiv.classList.add('todo-list');
+        tasksContainerDiv.appendChild(todoListDiv);
+
+        const updateTodoListDisplay = () => {
+            todoListDiv.textContent = '';
             const todoContainerArray = project.getTodoList();
-            todoContainerArray.forEach(todoObj => {
+            const reversedTodoContainerArray =todoContainerArray.slice().reverse();
+            reversedTodoContainerArray.forEach(todoObj => {
                 const todoDiv = document.createElement('div');
                 todoDiv.classList.add('todo');
                 todoListDiv.appendChild(todoDiv);
@@ -195,7 +250,8 @@ const screenController = (() => {
                 deleteTodoIcon.innerHTML = '&#xe872';
                 rightDiv.appendChild(deleteTodoIcon);
             })
-        })();
+        }
+        updateTodoListDisplay();
     }
 
     //Initial Render
