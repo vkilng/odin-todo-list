@@ -5,6 +5,7 @@ const projectContainer = () => {
         let _description = description;
         const _dueDate = dueDate;
         const _priority = priority;
+        let _isActive = true;
 
         const getTitle = () => _title;
         const getDueDate = () => _dueDate;
@@ -13,8 +14,10 @@ const projectContainer = () => {
             _title = editedTitle;
             _description = editedDescription;
         }
+        const setToCompleted = () => { _isActive = false };
+        const isActive = () => _isActive;
 
-        return {getTitle, getDueDate, getPriority, editTodo}
+        return {getTitle, getDueDate, getPriority, editTodo, setToCompleted, isActive}
     }
     const project = (projectName) => {
         let _projectName = projectName;
@@ -24,17 +27,20 @@ const projectContainer = () => {
         const addTodo = (title, description = 'Hehe', dueDate = '23rd Jan 2023', priority = 0) => {
             _activeTodos.push(todo(title,description,dueDate,priority));
         }
-        const setTodoToCompleted = (index) => {
-            _completedTodos.push(_activeTodos[index]);
-            _activeTodos.splice(index,1);
+        const setTodoToCompleted = (indexInCombinedTodoList) => {
+            const indexInActiveList = indexInCombinedTodoList - _completedTodos.length; 
+            _activeTodos[indexInActiveList].setToCompleted();
+            _completedTodos.push(_activeTodos[indexInActiveList]);
+            _activeTodos.splice(indexInActiveList,1);
         }
-        const removeTodo = (isActive, index) => {
-            if (isActive) _activeTodos.splice(index,1);
-            else _completedTodos.splice(index,1);
+        const removeTodo = (isActive, indexInCombinedList) => {
+            const indexInActiveList = indexInCombinedList - _completedTodos.length;
+            if (isActive) _activeTodos.splice(indexInActiveList,1);
+            else _completedTodos.splice(indexInCombinedList,1);
         }
         const getActiveTodoList = () => _activeTodos;
         const getCompletedTodoList = () => _completedTodos;
-        const getTodoList = () => _activeTodos.concat(_completedTodos);
+        const getTodoList = () => _completedTodos.concat(_activeTodos);
         const getProjectName = () => _projectName;
         const editProjectName = (newProjectName) => { _projectName = newProjectName };
 
@@ -83,7 +89,7 @@ const screenController = (() => {
             const cardDiv = document.createElement('div');
             cardDiv.classList.add('card');
             cardDiv.dataset.projectIndex = index;
-            projectContainerDiv.appendChild(cardDiv);
+            projectContainerDiv.insertAdjacentElement('afterbegin',cardDiv);
             cardDiv.addEventListener('click',() => updateTasksContainerDisplay(index));
             const cardTitleDiv = document.createElement('div');
             cardTitleDiv.textContent = projectObj.getProjectName();
@@ -95,7 +101,11 @@ const screenController = (() => {
             todoList.forEach(todoObj => {
                 const li = document.createElement('li');
                 li.textContent = todoObj.getTitle();
-                ul.appendChild(li);
+                if (!todoObj.isActive()) {
+                    li.style.textDecorationLine = 'line-through';
+                    li.style.color = 'grey';
+                }
+                ul.insertAdjacentElement('afterbegin',li);
             })
         })
     }
@@ -222,23 +232,32 @@ const screenController = (() => {
         const todoListDiv = document.createElement('div');
         todoListDiv.classList.add('todo-list');
         tasksContainerDiv.appendChild(todoListDiv);
-        //Because I reversed the array to show items in reverse, the index
-        //in the original array no longer matches the index of the todo DOM
-        //Something to work on tmrw, while I have the most recent tasks displayed at the top
+
         const updateTodoListDisplay = () => {
             todoListDiv.textContent = '';
             const todoContainerArray = project.getTodoList();
-            const reversedTodoContainerArray =todoContainerArray.slice().reverse();
-            reversedTodoContainerArray.forEach(todoObj => {
+
+            todoContainerArray.forEach((todoObj,todoIndex) => {
                 const todoDiv = document.createElement('div');
                 todoDiv.classList.add('todo');
-                todoListDiv.appendChild(todoDiv);
+                if (todoObj.isActive()) todoDiv.classList.add('active');
+                else todoDiv.classList.add('completed');
+                todoListDiv.insertAdjacentElement('afterbegin',todoDiv);
                 const leftDiv = document.createElement('div');
                 todoDiv.appendChild(leftDiv);
                 const tickIcon = document.createElement('i');
                 tickIcon.classList.add('material-symbols-rounded');
                 tickIcon.innerHTML = '&#xe86c';
                 leftDiv.appendChild(tickIcon);
+                //Set task to completed event
+                if (todoObj.isActive()) {tickIcon.addEventListener('click',() => {
+                    project.setTodoToCompleted(todoIndex);
+                    todoDiv.classList.remove('active');
+                    todoDiv.classList.add('completed');
+                    tickIcon.style.pointerEvents = 'none';
+                    updateTodoListDisplay();
+                    return;
+                })}
                 const todoTitleDiv = document.createElement('div');
                 todoTitleDiv.textContent = todoObj.getTitle();
                 leftDiv.appendChild(todoTitleDiv);
@@ -251,10 +270,18 @@ const screenController = (() => {
                 deleteTodoIcon.classList.add('material-symbols-rounded');
                 deleteTodoIcon.innerHTML = '&#xe872';
                 rightDiv.appendChild(deleteTodoIcon);
+                deleteTodoIcon.addEventListener('click',() => {
+                    project.removeTodo(todoObj.isActive(),todoIndex);
+                    updateTodoListDisplay();
+                    return;
+                })
             })
         }
         updateTodoListDisplay();
     }
+
+    const sideBarAllProjectsButton = document.querySelector('.sidebar ul:nth-of-type(1) li:nth-of-type(1)');
+    sideBarAllProjectsButton.addEventListener('click',() => updateProjectContainerDisplay());
 
     //Initial Render
     //updateProjectContainerDisplay();
