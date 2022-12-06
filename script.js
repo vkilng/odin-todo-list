@@ -222,7 +222,9 @@ const screenController = (() => {
         const todoListDiv = document.createElement('div');
         todoListDiv.classList.add('todo-list');
         tasksContainerDiv.appendChild(todoListDiv);
-
+        //Because I reversed the array to show items in reverse, the index
+        //in the original array no longer matches the index of the todo DOM
+        //Something to work on tmrw, while I have the most recent tasks displayed at the top
         const updateTodoListDisplay = () => {
             todoListDiv.textContent = '';
             const todoContainerArray = project.getTodoList();
