@@ -1,0 +1,26 @@
+{
+  "name": "odin-todo",
+  "version": "1.0.0",
+  "description": "- [Live Preview](https://vkilng.github.io/odin-todo-list)",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vkilng/odin-todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vkilng/odin-todo-list/issues"
+  },
+  "homepage": "https://github.com/vkilng/odin-todo-list#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}

@@ -153,7 +153,7 @@ const screenController = (() => {
             projectTitleDiv.textContent = project.getProjectName();
             leftHeaderDiv.appendChild(projectTitleDiv);
             const editProjectNameIcon = document.createElement('i');
-            editProjectNameIcon.classList.add('material-symbols-sharp');
+            editProjectNameIcon.classList.add('material-symbols-rounded');
             editProjectNameIcon.innerHTML = '&#xe3c9';
             leftHeaderDiv.appendChild(editProjectNameIcon);
             editProjectNameIcon.addEventListener('click',() => {
@@ -175,7 +175,7 @@ const screenController = (() => {
             projectHeaderDiv.appendChild(middleHeaderDiv);
             const addTodoButton = document.createElement('div');
             middleHeaderDiv.appendChild(addTodoButton);
-            addTodoButton.insertAdjacentHTML('beforeend','<i class="material-symbols-sharp">&#xe147</i>Add Todo');
+            addTodoButton.insertAdjacentHTML('beforeend','<i class="material-symbols-rounded">&#xe147</i>Add Todo');
             //Add Todo Form DOM code
             const addTodoPopUp = document.createElement('div');
             addTodoPopUp.classList.add('add-todo-popup');
@@ -254,7 +254,6 @@ const screenController = (() => {
                     project.setTodoToCompleted(todoIndex);
                     todoDiv.classList.remove('active');
                     todoDiv.classList.add('completed');
-                    tickIcon.style.pointerEvents = 'none';
                     updateTodoListDisplay();
                     return;
                 })}
@@ -284,8 +283,8 @@ const screenController = (() => {
     sideBarAllProjectsButton.addEventListener('click',() => updateProjectContainerDisplay());
 
     //Initial Render
-    //updateProjectContainerDisplay();
-    updateTasksContainerDisplay(0);
+    updateProjectContainerDisplay();
+    //updateTasksContainerDisplay(0);
 })
 
 screenController();
