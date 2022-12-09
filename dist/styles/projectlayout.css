@@ -112,10 +112,16 @@
 .todo div div {
     font-size: 0.9rem;
 }
-.todo.active div:nth-of-type(1) div {
+.todo > div:nth-of-type(1) div {
+    max-width: 35vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.todo.active > div:nth-of-type(1) div {
     cursor: pointer;
 }
-.todo.active div:nth-of-type(1) div:hover {
+.todo.active > div:nth-of-type(1) div:hover {
     font-size: 1rem;
 }
 .todo.completed div div {
