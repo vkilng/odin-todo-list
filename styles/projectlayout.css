@@ -1,0 +1,150 @@
+.tasks-container {
+    display: grid;
+    grid-auto-rows: min-content;
+    padding: 2vw;
+}
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px black;
+    padding-bottom: 2vw;
+}
+.project-header > div {
+    display: flex;
+}
+.left-project-header i:nth-of-type(1) {
+    flex-shrink: 0;
+    font-size: 3rem;
+    align-self: center;
+    cursor: pointer;
+    color: grey;
+    opacity: 0.5;
+    margin-right: 0.5vw;
+}
+.left-project-header i:nth-of-type(1):hover {
+    background-color: rgba(207, 207, 207, 0.5);
+    border-radius: 1vw;
+    opacity: 1;
+}
+.left-project-header div {
+    overflow-x: hidden;
+    max-width: 25vw;
+    font-size: 1.5rem;
+    padding: 0.3vw 1vw;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    display: flex; align-items: center;
+}
+.left-project-header i:nth-of-type(2) {
+    color: grey;
+    cursor: pointer;
+    height: min-content;
+    font-size: 1rem;
+}
+.left-project-header i:nth-of-type(2):hover {
+    font-variation-settings: 'FILL' 1;
+}    
+.middle-project-header {
+    position: relative;
+}
+.middle-project-header > div:nth-of-type(1) {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    cursor: pointer;
+}
+.middle-project-header, .right-project-header {
+    padding: 0.5vw 1vw;
+    height: min-content;
+    align-items: center;
+    color: grey;
+    background-color: rgba(203, 213, 225, 0.5);
+    border-radius: 1vw;
+    user-select: none;
+}
+.right-project-header {
+    gap: 0.5vw;
+    cursor: pointer;
+}
+.right-project-header:hover, .middle-project-header > div:nth-of-type(1):hover {
+    color: black;
+    font-variation-settings: 'FILL' 1;
+}
+
+.todo-list {
+    overflow-y: scroll;
+}
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vw 0;
+    border-bottom: solid grey 1px;
+}
+.todo > div {
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+}
+.todo i {
+    cursor: pointer;
+}
+.todo i:hover {
+    font-variation-settings: 'FILL' 1;
+}
+.todo div:nth-of-type(1) i {
+    font-size: 2rem;
+    color: grey;
+}
+.todo.active div:nth-of-type(1) i:hover {
+    color: #84cc16;
+}
+.todo.completed div:nth-of-type(1) i {
+    color: #84cc16;
+    font-variation-settings: 'FILL' 1;
+    cursor: auto;
+}
+.todo div:nth-of-type(2) i:hover {
+    color: #dc2626;
+}
+.todo div div {
+    font-size: 0.9rem;
+}
+.todo > div:nth-of-type(1) div {
+    max-width: 35vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.todo.active > div:nth-of-type(1) div:nth-of-type(1) {
+    cursor: pointer;
+}
+.todo.active > div:nth-of-type(1) div:nth-of-type(1):hover {
+    font-size: 1rem;
+}
+.todo.completed div div {
+    text-decoration-line: line-through;
+    color: grey;
+}
+.todo .duedate {
+    color: #57534e;
+}
+.todo .priority-flag {
+    border: 1px solid;
+    border-radius: 0.5vw;
+    padding: 0.2vw 1vw;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.todo .priority-flag.low {
+    border-color: #0d9488;
+    background-color: #99f6e4;
+    color: #2dd4bf;
+}
+.todo .priority-flag.high {
+    border-color: #dc2626;
+    background-color: pink;
+    color: #dc2626;
+}

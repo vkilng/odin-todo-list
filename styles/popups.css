@@ -1,0 +1,180 @@
+.add-project-popup {
+    visibility: hidden;
+    z-index: 1;
+    position: absolute;
+    top: 120%; right: 0;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    padding: 2vw;
+    border-radius: 2vw;
+}
+.add-project-popup.show { visibility: visible; }
+.add-project-popup form p input {
+    margin-top: 0.5vw;
+    padding: 0.7vw 1vw;
+    font-size: 0.9rem;
+    background-color: rgb(227, 227, 227);
+    border: 0;
+    outline: 0;
+    border-radius: 0.5vw;
+}
+.add-project-popup form > input {
+    border: 0;
+    background-color: lightgray;
+    padding: 0.7vw 2vw;
+    border-radius: 1vw;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.add-todo-popup {
+    visibility: hidden;
+    z-index: 1;
+    position: absolute;
+    top: 120%; right: 0;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    padding: 2vw;
+    border-radius: 2vw;
+}
+.add-todo-popup.show { visibility: visible; }
+.add-todo-popup form {
+    display: grid;
+    justify-content: end;
+}
+.add-todo-popup input {
+    display: block;
+}
+.add-todo-popup input[type='text'] {
+    width: 30vw;
+    outline: none;
+    border: none;
+    background-color: #292524;
+    color: white;
+    font-size: 1rem;
+    padding: 1.5vw 1.5vw;
+    border-radius: 0 0 1vw 1vw;
+}
+.add-todo-popup input[type='text']:nth-of-type(1) {
+    font-size: 2rem;
+    border-radius: 1vw 1vw 0 0;
+    padding-bottom: 0;
+}
+.add-todo-popup input[type='date']::before {
+    content: 'Due Date: ';
+    color: white;
+    margin-right: 1vw;
+}
+.add-todo-popup input[type='date'], .edit-todo-popup input {
+    margin: 2vw 0;
+    padding: 0.5vw 1vw;
+    background-color: #292524;
+    color-scheme: dark;
+    border-radius: 1vw;
+    color: white;
+    justify-self:end;
+}
+.add-todo-popup div {
+    justify-self: end;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+    margin-bottom: 1vw;
+    font-weight: bold;
+}
+.add-todo-popup select {
+    border-radius: 1vw;
+    padding: 0.5vw 1vw;
+    background-color: #292524;
+    color: white;
+}
+.add-todo-popup option {
+    padding: 0.5vw 1vw;
+}
+.add-todo-popup p {
+    width: min-content;
+    justify-self: start;
+}
+.add-todo-popup p input {
+    padding: 0.5vw 3vw;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 1vw;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-todo-popup {
+    z-index: 2;
+    position: absolute;
+    top: 30%;
+    justify-self: center;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    padding: 1vw;
+    border-radius: 2vw;
+    display: flex;
+    justify-content: space-between;
+    min-width: 30vw;
+}
+.edit-todo-popup i {
+    flex-shrink: 0;
+    border-radius: 1vw;
+    padding: 0.5vw;
+    height: min-content;
+    cursor: pointer;
+}
+.edit-todo-popup i:hover {
+    background-color: #292524;
+}
+.edit-todo-popup span {
+    padding: 1vw;
+    display: grid;
+}
+.edit-todo-popup span > div:nth-last-of-type(n+2) {
+    min-width: 30vw;
+    max-width: 40vw;
+    color: lightgray;
+    background-color: #292524;
+    border: none;
+    padding: 1vw;
+    padding-right: 2vw;
+    font-size: 1rem;
+}
+.edit-todo-popup span > div:nth-of-type(1) {
+    border-radius: 1vw 1vw 0 0;
+    padding-bottom: 1vw;
+    font-size: 2rem;
+}
+.edit-todo-popup span > div:nth-of-type(2) {
+    border-radius: 0 0 1vw 1vw;
+    padding-top: 0;
+}
+.edit-todo-popup span > div:nth-of-type(3) {
+    justify-self: end;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+    margin-bottom: 1vw;
+    font-weight: bold;
+}
+.edit-todo-popup span select {
+    border-radius: 1vw;
+    padding: 0.5vw 1vw;
+    background-color: #292524;
+    color: white;
+}
+.edit-todo-popup span option {
+    padding: 0.5vw 1vw;
+}
+.edit-todo-popup div:focus {
+    outline: none;
+    color: white;
+}
+.edit-todo-popup input::before {
+    content: 'Due Date: ';
+    color: white;
+    margin-right: 1vw;
+}
