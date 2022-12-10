@@ -25,9 +25,31 @@ const screenController = (() => {
 
     const sidebarModule = (() => {
         const links = document.querySelectorAll('.sidebar li');
-        links[0].addEventListener('click',() => updateProjectContainerDisplay());
-        links[1].addEventListener('click',() => displayFilteredTasks('today'));
-        links[2].addEventListener('click',() => displayFilteredTasks('high'));
+        const defocusAll = () => {
+            for (let i=0; i<3 ;i++) {
+                links[i].classList.remove('focused');
+            }
+        }
+        const focusLi = (element) => {
+            element.classList.add('focused');
+        }
+        links[0].addEventListener('click',(e) => {
+            defocusAll();
+            updateProjectContainerDisplay();
+            focusLi(e.target);
+        })
+        links[1].addEventListener('click',(e) => {
+            defocusAll();
+            displayFilteredTasks('today')
+            focusLi(e.target);
+        });
+        links[2].addEventListener('click',(e) => {
+            defocusAll();
+            displayFilteredTasks('high')
+            focusLi(e.target);
+        });
+        //Initial Render
+        focusLi(links[0]);
     })();
 
     //Initial Render
