@@ -1,6 +1,6 @@
 import { app } from './ApplicationLogic';
 import updateProjectContainerDisplay from './DisplayProjectContainer';
-//import updateTasksContainerDisplay from './DisplayTaskContainer';//for testing purposes
+import displayFilteredTasks from './DisplayFilteredTasks';
 
 const screenController = (() => {
     const enableAddProjectFunction = (() => {
@@ -23,11 +23,14 @@ const screenController = (() => {
         })
     })();
 
-    const sideBarAllProjectsButton = document.querySelector('.sidebar ul:nth-of-type(1) li:nth-of-type(1)');
-    sideBarAllProjectsButton.addEventListener('click',() => updateProjectContainerDisplay());
+    const sidebarModule = (() => {
+        const links = document.querySelectorAll('.sidebar li');
+        links[0].addEventListener('click',() => updateProjectContainerDisplay());
+        links[1].addEventListener('click',() => displayFilteredTasks('today'));
+        links[2].addEventListener('click',() => displayFilteredTasks('high'));
+    })();
 
     //Initial Render
     updateProjectContainerDisplay();
-    //updateTasksContainerDisplay(0);
 
 })();

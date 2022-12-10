@@ -4,17 +4,18 @@ const projectContainer = () => {
         let _title = title;
         let _description = description;
         let _dueDate = dueDate;
-        const _priority = priority;
+        let _priority = priority;
         let _isActive = true;
 
         const getTitle = () => _title;
         const getDescription = () => _description;
         const getDueDate = () => _dueDate;
         const getPriority = () => _priority;
-        const editTodo = (editedTitle, editedDescription, _editedDueDate) => {
+        const editTodo = (editedTitle, editedDescription, editedDueDate, editedPriority) => {
             _title = editedTitle;
             _description = editedDescription;
-            _dueDate = _editedDueDate;
+            _dueDate = editedDueDate;
+            _priority = editedPriority;
         }
         const setToCompleted = () => { _isActive = false };
         const isActive = () => _isActive;
@@ -26,7 +27,7 @@ const projectContainer = () => {
         let _activeTodos = [];
         let _completedTodos = [];
 
-        const addTodo = (title, description = 'Hehe', dueDate = new Date().toDateString(), priority = 0) => {
+        const addTodo = (title, description = 'Hehe', dueDate = new Date().toDateString(),priority) => {
             _activeTodos.push(todo(title,description,dueDate,priority));
         }
         const setTodoToCompleted = (indexInCombinedTodoList) => {
@@ -63,12 +64,14 @@ const appController = () => {
     const containerArray = container.getContainerArray();
     //Initialize dummy Project
     container.addProject('Dummy Project One');
-    containerArray[0].addTodo('Lorem ipsum','dolor sit amet');
-    containerArray[0].addTodo('consectetur adipiscing elit boia aisbcqo cqoc qoic oq dc qasc oa sox qo cqo','Donec egestas tincidunt ultrices');
-    containerArray[0].addTodo('Curabitur lobortis','quam sed imperdiet hendrerit');
-    containerArray[0].addTodo('Etiam id diam nunc','Integer vitae magna ac tellus vestibulum elementum.');
-    containerArray[0].addTodo('Nam tristique orci si','amet nibh suscipit maximus');
-    containerArray[0].addTodo('Curabitur lobortis','quam sed imperdiet hendrerit');
+    containerArray[0].addTodo('Lorem ipsum','dolor sit amet',undefined,'low');
+    containerArray[0].addTodo('consectetur adipiscing elit boia aisbcqo cqoc qoic oq dc qasc oa sox qo cqo',
+        'Donec egestas tincidunt ultrices',undefined,'low');
+    containerArray[0].addTodo('suscipit maximus','quam sed imperdiet hendrerit',undefined,'high');
+    containerArray[0].addTodo('Etiam id diam nunc',
+        'Integer vitae magna ac tellus vestibulum elementum.',undefined,'none');
+    containerArray[0].addTodo('Nam tristique orci si','amet nibh suscipit maximus',undefined,'high');
+    containerArray[0].addTodo('Curabitur lobortis','quam sed imperdiet hendrerit',undefined,'low');
     container.addProject('Dummy Project Two');
 
     const getContainer = () => container;

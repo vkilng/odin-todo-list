@@ -26,9 +26,12 @@ const updateProjectContainerDisplay = () => {
         todoList.forEach(todoObj => {
             const li = document.createElement('li');
             li.textContent = todoObj.getTitle();
+            if (todoObj.getPriority() === 'high') li.classList.add('high');
+            if (todoObj.getPriority() === 'low') li.classList.add('low');
             if (!todoObj.isActive()) {
                 li.style.textDecorationLine = 'line-through';
                 li.style.color = 'grey';
+                li.classList.add('strike');
             }
             ul.insertAdjacentElement('afterbegin',li);
         })

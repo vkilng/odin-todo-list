@@ -75,15 +75,32 @@
     color: white;
     justify-self:end;
 }
+.add-todo-popup div {
+    justify-self: end;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+    margin-bottom: 1vw;
+    font-weight: bold;
+}
+.add-todo-popup select {
+    border-radius: 1vw;
+    padding: 0.5vw 1vw;
+    background-color: #292524;
+    color: white;
+}
+.add-todo-popup option {
+    padding: 0.5vw 1vw;
+}
 .add-todo-popup p {
     width: min-content;
-    justify-self: end;
+    justify-self: start;
 }
 .add-todo-popup p input {
     padding: 0.5vw 3vw;
     font-size: 1rem;
     font-weight: bold;
-    border-radius: 2vw;
+    border-radius: 1vw;
     outline: none;
     border: none;
     cursor: pointer;
@@ -116,7 +133,7 @@
     padding: 1vw;
     display: grid;
 }
-.edit-todo-popup span > div {
+.edit-todo-popup span > div:nth-last-of-type(n+2) {
     min-width: 30vw;
     max-width: 40vw;
     color: lightgray;
@@ -134,6 +151,23 @@
 .edit-todo-popup span > div:nth-of-type(2) {
     border-radius: 0 0 1vw 1vw;
     padding-top: 0;
+}
+.edit-todo-popup span > div:nth-of-type(3) {
+    justify-self: end;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+    margin-bottom: 1vw;
+    font-weight: bold;
+}
+.edit-todo-popup span select {
+    border-radius: 1vw;
+    padding: 0.5vw 1vw;
+    background-color: #292524;
+    color: white;
+}
+.edit-todo-popup span option {
+    padding: 0.5vw 1vw;
 }
 .edit-todo-popup div:focus {
     outline: none;

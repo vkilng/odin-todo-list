@@ -139,13 +139,26 @@ html,body{
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
-.card ul li {
+.card li {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 1vw;
 }
-.card ul li::before {
+.card li::before {
     content: "\00bb  ";
     font-size: 0.9rem;
+}
+.card li.low::before {
+    color: #2dd4bf;
+}
+.card li.high::before {
+    color: #dc2626;
+}
+.card li.strike::before {
+    content: "";
+}
+
+.filtered-tasks-container {
+    padding: 2vw;
 }

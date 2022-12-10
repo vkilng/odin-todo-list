@@ -1,10 +1,9 @@
 import { app } from './ApplicationLogic';
 import updateProjectContainerDisplay from './DisplayProjectContainer';
-import { format, parseISO } from 'date-fns';
-
-const contentDiv = document.querySelector('.main-content');
+import { format } from 'date-fns';
 
 const updateTasksContainerDisplay = (projectIndex) => {
+    const contentDiv = document.querySelector('.main-content');
     contentDiv.textContent = '';
     const project = app.getContainer().getContainerArray()[projectIndex];
     const tasksContainerDiv = document.createElement('div');
@@ -61,6 +60,7 @@ const updateTasksContainerDisplay = (projectIndex) => {
         todoTitleInput.setAttribute('placeholder','Title');
         todoTitleInput.setAttribute('required','true');
         addTodoForm.appendChild(todoTitleInput);
+        todoTitleInput.focus();
         const todoDescriptionInput = document.createElement('input');
         todoDescriptionInput.setAttribute('type','text');
         todoDescriptionInput.setAttribute('placeholder','Description');
@@ -70,6 +70,14 @@ const updateTasksContainerDisplay = (projectIndex) => {
         todoDueDateInput.setAttribute('min',format(new Date(),'yyyy-LL-dd'));
         todoDueDateInput.setAttribute('value',format((new Date()),'yyyy-LL-dd'));
         addTodoForm.appendChild(todoDueDateInput);
+        const todoPriorityDiv = document.createElement('div');
+        addTodoForm.appendChild(todoPriorityDiv);
+        const todoPrioritySelect = document.createElement('select');
+        todoPriorityDiv.appendChild(todoPrioritySelect);
+        todoPrioritySelect.insertAdjacentHTML('beforebegin','<span>Priority:</span>');
+        todoPrioritySelect.insertAdjacentHTML('beforeend','<option value="none">None</option>');
+        todoPrioritySelect.insertAdjacentHTML('beforeend','<option value="low">Low</option>');
+        todoPrioritySelect.insertAdjacentHTML('beforeend','<option value="high">High</option>');
         addTodoForm.insertAdjacentHTML('beforeend',"<p><input type='submit' value='Submit' /></p>");
         const addTodoFunction = (() => {
             const toggleAddTodoPopUp = () => {
@@ -87,7 +95,8 @@ const updateTasksContainerDisplay = (projectIndex) => {
                 let formattedDate;
                 if (todoDueDateInput.value === '') {formattedDate = new Date().toDateString()}
                 else {formattedDate = new Date(todoDueDateInput.value).toDateString()};
-                project.addTodo(todoTitleInput.value, todoDescriptionInput.value, formattedDate);
+                project.addTodo(todoTitleInput.value, todoDescriptionInput.value,
+                    formattedDate, todoPrioritySelect.value);
                 updateTodoListDisplay();
                 addTodoForm.reset();
                 toggleAddTodoPopUp();
@@ -144,6 +153,14 @@ const updateTasksContainerDisplay = (projectIndex) => {
                 if (editTodoPopUp) editTodoPopUp.remove();
                 editTodo(todoObj);
             })}
+            if (todoObj.getPriority() !== 'none' && todoObj.isActive()) {
+                const priorityFlagDiv = document.createElement('div');
+                priorityFlagDiv.classList.add('priority-flag');
+                priorityFlagDiv.textContent = todoObj.getPriority();
+                if (todoObj.getPriority() === 'low') priorityFlagDiv.classList.add('low');
+                if (todoObj.getPriority() === 'high') priorityFlagDiv.classList.add('high');
+                leftDiv.appendChild(priorityFlagDiv);
+            }
             const rightDiv = document.createElement('div');
             todoDiv.appendChild(rightDiv);
             const dueDateDiv = document.createElement('div');
@@ -182,6 +199,17 @@ const updateTasksContainerDisplay = (projectIndex) => {
         todoDueDateInput.setAttribute('value',format(new Date(todoObj.getDueDate()),'yyyy-LL-dd'));
         //todoDueDateInput.setAttribute('value','2022-12-09');
         editTodoForm.appendChild(todoDueDateInput);
+        const todoPriorityDiv = document.createElement('div');
+        editTodoForm.appendChild(todoPriorityDiv);
+        const todoPrioritySelect = document.createElement('select');
+        todoPriorityDiv.appendChild(todoPrioritySelect);
+        todoPrioritySelect.insertAdjacentHTML('beforebegin','<span>Priority:</span>');
+        let attr = {'none': '', 'low':'', 'high':''};
+        attr[todoObj.getPriority()] = 'selected';
+        todoPrioritySelect.insertAdjacentHTML('beforeend',`<option value="none" ${attr.none}>None</option>`);
+        todoPrioritySelect.insertAdjacentHTML('beforeend',`<option value="low" ${attr.low}>Low</option>`);
+        todoPrioritySelect.insertAdjacentHTML('beforeend',`<option value="high" ${attr.high}>High</option>`);
+
         const closeEditTodoPopUpIcon = document.createElement('i');
         closeEditTodoPopUpIcon.classList.add('material-symbols-rounded');
         closeEditTodoPopUpIcon.innerHTML = '&#xe5cd';
@@ -191,7 +219,7 @@ const updateTasksContainerDisplay = (projectIndex) => {
             if (todoTitleDiv.textContent === '') return;
             const formattedDate = new Date(todoDueDateInput.value).toDateString();
             todoObj.editTodo(todoTitleDiv.textContent, todoDescriptionDiv.textContent,
-                formattedDate);
+                formattedDate, todoPrioritySelect.value);
             updateTodoListDisplay();
             editTodoPopUp.remove();
             return;
