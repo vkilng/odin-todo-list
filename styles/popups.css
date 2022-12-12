@@ -37,6 +37,7 @@
     color: white;
     padding: 2vw;
     border-radius: 2vw;
+    min-width: 165px;
 }
 .add-todo-popup.show { visibility: visible; }
 .add-todo-popup form {
@@ -47,7 +48,7 @@
     display: block;
 }
 .add-todo-popup input[type='text'] {
-    width: 30vw;
+    min-width: 30vw;
     outline: none;
     border: none;
     background-color: #292524;
@@ -177,4 +178,10 @@
     content: 'Due Date: ';
     color: white;
     margin-right: 1vw;
+}
+
+@media screen and (max-width: 625px) {
+    .add-todo-popup {
+        right: -50px;
+    }
 }
