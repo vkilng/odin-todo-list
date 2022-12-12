@@ -148,3 +148,12 @@
     background-color: pink;
     color: #dc2626;
 }
+
+@media screen and (max-width: 625px) {
+    .middle-project-header, .right-project-header {
+        background-color: lightgray;
+    }
+    .middle-project-header i, .right-project-header i {
+        font-size: 2rem;
+    }
+}

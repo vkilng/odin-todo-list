@@ -3,6 +3,7 @@ import updateProjectContainerDisplay from './DisplayProjectContainer';
 import displayFilteredTasks from './DisplayFilteredTasks';
 
 const screenController = (() => {
+    window.onresize = () => window.location.reload();
     const enableAddProjectFunction = (() => {
         const toggleAddProjectPopUp = () => document.querySelector('.add-project-popup').classList.toggle('show');
         const _addProjectIcon =  document.querySelector('.header .addIcon');
@@ -23,7 +24,7 @@ const screenController = (() => {
         })
     })();
 
-    const sidebarModule = (() => {
+    const sidebarModule = () => {
         const links = document.querySelectorAll('.sidebar li');
         const defocusAll = () => {
             for (let i=0; i<3 ;i++) {
@@ -50,6 +51,35 @@ const screenController = (() => {
         });
         //Initial Render
         focusLi(links[0]);
+    };
+
+    const animateSidebar = (() => {
+        if (screen.width <= 625) {
+            if (document.querySelector('.sidebar')) document.querySelector('.sidebar').remove();
+            const sidebarTriggerButton = document.querySelector('.header i.logo');
+            sidebarTriggerButton.addEventListener('click',() => {
+                if (document.querySelector('.sidebar')) {
+                    document.querySelector('.sidebar').classList.toggle('show');
+                    sidebarTriggerButton.innerHTML = '&#xe6b3';
+                }
+                else
+                {
+                    sidebarTriggerButton.innerHTML = '&#xe5d2';
+                    const sidebar = document.createElement('div');
+                    sidebar.classList.add('sidebar');
+                    document.querySelector('.header>div:nth-of-type(1)').appendChild(sidebar);
+                    const ulElement = document.createElement('ul');
+                    sidebar.appendChild(ulElement);
+                    ulElement.insertAdjacentHTML('beforeend','<li><i class="material-symbols-rounded">&#xe871</i>All Projects</li>');
+                    ulElement.insertAdjacentHTML('beforeend','<li><i class="material-symbols-rounded">&#xe8df</i>Today</li>');
+                    ulElement.insertAdjacentHTML('beforeend','<li><i class="material-symbols-rounded">&#xeacf</i>High Priority</li>');
+                    document.querySelector('.sidebar').classList.toggle('show');
+                    sidebarModule();
+                }
+            })
+        } else {
+            sidebarModule();
+        }
     })();
 
     //Initial Render
