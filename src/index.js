@@ -3,7 +3,6 @@ import updateProjectContainerDisplay from './DisplayProjectContainer';
 import displayFilteredTasks from './DisplayFilteredTasks';
 
 const screenController = (() => {
-    window.onresize = () => window.location.reload();
     const enableAddProjectFunction = (() => {
         const toggleAddProjectPopUp = () => document.querySelector('.add-project-popup').classList.toggle('show');
         const _addProjectIcon =  document.querySelector('.header .addIcon');
