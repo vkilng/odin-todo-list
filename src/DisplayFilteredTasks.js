@@ -47,12 +47,7 @@ const displayTodo = (filter ,project, todoIndex) => {
     const todoTitleDiv = document.createElement('div');
     todoTitleDiv.textContent = todoObj.getTitle();
     leftDiv.appendChild(todoTitleDiv);
-    //Clicking on the title will trigger editTodo function
-    if (todoObj.isActive()) {todoTitleDiv.addEventListener('click',() => {
-        const editTodoPopUp = document.querySelector('.edit-todo-popup');
-        if (editTodoPopUp) editTodoPopUp.remove();
-        editTodo(todoObj);
-    })}
+    //Clicking on the title will not editing
     if (todoObj.getPriority() !== 'none' && todoObj.isActive()) {
         const priorityFlagDiv = document.createElement('div');
         priorityFlagDiv.classList.add('priority-flag');
